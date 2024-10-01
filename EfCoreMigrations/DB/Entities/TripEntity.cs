@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EfCoreMigrations.DB.Entities.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfCoreMigrations.Entities;
+namespace EfCoreMigrations.DB.Entities;
 
 [Table("Trips")]
 [Index("Id")]
-public class TripEntity
+public class TripEntity : BaseEntity<Guid>
 {
-    [Key]
-    public Guid Id { get; set; }
     public Guid CompanyId { get; set; }
 
     [Required]
@@ -28,5 +27,5 @@ public class TripEntity
     [Required]
     public List<PassengerTripAuxilatyEntity> PassengerTrips { get; set; } = new List<PassengerTripAuxilatyEntity>();
     [Required]
-    public CompanyEntity? Company { get; set; } 
+    public CompanyEntity? Company { get; set; }
 }

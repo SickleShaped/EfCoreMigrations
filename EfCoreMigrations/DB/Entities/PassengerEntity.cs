@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EfCoreMigrations.DB.Entities.Abstractions;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfCoreMigrations.Entities;
+namespace EfCoreMigrations.DB.Entities;
 
 [Table("Passengers")]
 [Index("Id")]
-public class PassengerEntity
+public class PassengerEntity: BaseEntity<Guid>
 {
-    [Key]
-    public Guid Id { get; set; }
 
     [Required]
     public string? Name { get; set; }

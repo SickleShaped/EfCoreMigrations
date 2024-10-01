@@ -1,13 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EfCoreMigrations.DB.Entities.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EfCoreMigrations.Entities;
+namespace EfCoreMigrations.DB.Entities;
 
 [Table("PassengerTrips")]
-public class PassengerTripAuxilatyEntity
+public class PassengerTripAuxilatyEntity: BaseEntity<Guid>
 {
-    [Key]
-    public Guid Id { get; set; }
     public Guid TripId { get; set; }
     public Guid PassengerId { get; set; }
 

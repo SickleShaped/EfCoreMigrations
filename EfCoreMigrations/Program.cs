@@ -1,4 +1,3 @@
-using EfCoreMigrations.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations;
@@ -28,7 +27,6 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseAuthorization();
-        app.UseDBInitialize();
 
         app.MapControllers();
 

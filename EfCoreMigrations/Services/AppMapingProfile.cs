@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EfCoreMigrations.DB.Entities;
 using EfCoreMigrations.DTO;
-using EfCoreMigrations.Entities;
 
 namespace EfCoreMigrations.Services;
 

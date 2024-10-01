@@ -1,4 +1,4 @@
-﻿using EfCoreMigrations.Entities;
+﻿using EfCoreMigrations.DB.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
