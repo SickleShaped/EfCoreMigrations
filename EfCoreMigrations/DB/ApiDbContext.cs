@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace EfCoreMigrations;
+namespace EfCoreMigrations.DB;
 
 public class ApiDbContext : DbContext
 {
@@ -30,8 +30,6 @@ public class ApiDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
     }
 }
-
-

@@ -1,6 +1,6 @@
 ﻿namespace EfCoreMigrations.DTO;
 
-public class Trip
+public record Trip
 {
     public Guid Id { get; set; }
     public Guid CompanyId { get; set; }

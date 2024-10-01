@@ -1,3 +1,7 @@
+using EfCoreMigrations.BuilderServices;
+using EfCoreMigrations.DB;
+using EfCoreMigrations.Services;
+using EfCoreMigrations.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations;
@@ -13,9 +17,11 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
-
+        builder.Services.AddAutoMapper(typeof(AppMapingProfile));
         builder.Services.AddDbContext<ApiDbContext>(options => options.UseNpgsql(connection));
+        builder.Services.AddDependencyInjection(builder.Configuration);
+
+        builder.Services.AddHostedService<MigrateHostedService>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

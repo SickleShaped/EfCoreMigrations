@@ -5,14 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCoreMigrations.DB.Entities;
 
-[Table("Passengers")]
-[Index("Id")]
 public class PassengerEntity: BaseEntity<Guid>
 {
-
-    [Required]
-    public string? Name { get; set; }
-
+    public string Name { get; set; } = default!;
     public List<TripEntity> Trips { get; set; } = new List<TripEntity>();
     public List<PassengerTripAuxilatyEntity> PassengerTrips { get; set; } = new List<PassengerTripAuxilatyEntity>();
 }
