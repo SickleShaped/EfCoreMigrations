@@ -15,7 +15,6 @@ namespace EfCoreMigrations.DB.Configurations
         /// <param name="builder"></param>
         public void Configure(EntityTypeBuilder<TripEntity> builder)
         {
-            builder.ToTable("trips");
             builder.HasKey(k => k.Id);
             builder.HasIndex(k=>k.Id).IsUnique();
 
@@ -48,7 +47,6 @@ namespace EfCoreMigrations.DB.Configurations
                     pt.HasKey(k => k.Id);
                     pt.HasIndex(i => i.Id).IsUnique();
                     pt.Property(p => p.Place).IsRequired();
-                    pt.ToTable("passengertrips");
                 });
         }
     }
