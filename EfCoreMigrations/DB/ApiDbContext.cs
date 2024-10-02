@@ -1,6 +1,7 @@
 ﻿using EfCoreMigrations.DB.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace EfCoreMigrations.DB;
 
@@ -8,28 +9,19 @@ public class ApiDbContext : DbContext
 {
     public ApiDbContext() => Database.EnsureCreated();
     public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options) { Database.SetCommandTimeout(150000); }
-
-    /// <summary>
-    /// DBSet Компаний
-    /// </summary>
     public DbSet<CompanyEntity> Companies { get; set; } = null!;
-    /// <summary>
-    /// DBSet Пассажиров
-    /// </summary>
+    public DbSet<StateOwnedCompanyEntity> StateOwnedCompanies { get; set; } = null!;
     public DbSet<PassengerEntity> Passengers { get; set; } = null!;
-    /// <summary>
-    /// DBSet Поездок
-    /// </summary>
+    public DbSet<VipPassengerEntity> VipPassengerEntities { get; set; } = null!;
     public DbSet<TripEntity> Trips { get; set; } = null!;
-
-    /// <summary>
-    /// Вспомогательный DbSet для связи многие-ко-многим между таблицами Пассажиров и Поездок
-    /// </summary>
+    public DbSet<PlaneTripEntity> PlaneTrips { get; set; } = null!;
     public DbSet<PassengerEntity> PassengerTrips { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
+        builder.Entity<PassengerEntity>().UseTpcMappingStrategy();
+        builder.Entity<TripEntity>().UseTphMappingStrategy();
     }
 }
