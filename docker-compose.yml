@@ -1,0 +1,36 @@
+version: '3.4'
+
+
+networks:
+  migration-network:
+   driver: bridge
+
+services:
+  efcoremigrations:
+    image: ${DOCKER_REGISTRY-}efcoremigrations
+    build:
+      context: .
+      dockerfile: EfCoreMigrations/Dockerfile
+    depends_on: 
+     - postgreSQLdb
+  
+
+
+  postgreSQLdb:
+     container_name: postgreSQLdb
+     image: postgres:latest
+     environment:
+      POSTGRES_DB: EfMigrationTestDb
+      POSTGRES_PASSWORD: 9p8o7i6u
+      POSTGRES_USER: postgres
+     ports:
+      - "5432:5432"
+     networks:
+     - migration-network
+     volumes:
+     - postgres-data:/var/lib/postgresql/data
+
+
+volumes:
+ postgres-data: 
+
