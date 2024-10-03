@@ -8,6 +8,7 @@ public static class DependencyInjectionBuilderService
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services, Microsoft.Extensions.Configuration.ConfigurationManager builder)
     {
         services.AddTransient<IMigrateService, MigrateService>();
+        services.AddTransient<IEntityPoster, EntityPoster>();
         return services;
     }
 }
