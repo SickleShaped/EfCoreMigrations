@@ -2,6 +2,8 @@
 using EfCoreMigrations.DB.Entities;
 using EfCoreMigrations.DTO.CreationDto;
 using EfCoreMigrations.Services.Interfaces;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace EfCoreMigrations.Services.Implementations
 {
@@ -76,7 +78,7 @@ namespace EfCoreMigrations.Services.Implementations
             VipPassengerEntity entity = new VipPassengerEntity();
             entity.Id = Guid.NewGuid();
             entity.Name = creation.Name;
-            entity.JsonData = entity.JsonData;
+            entity.VipStatus = creation.VipStatus;
 
             await _dbContext.VipPassengerEntities.AddAsync(entity);
             await _dbContext.SaveChangesAsync();

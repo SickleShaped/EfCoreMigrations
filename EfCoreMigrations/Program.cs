@@ -3,6 +3,9 @@ using EfCoreMigrations.DB;
 using EfCoreMigrations.Services;
 using EfCoreMigrations.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Npgsql;
 
 namespace EfCoreMigrations;
 
@@ -18,7 +21,12 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddAutoMapper(typeof(AppMapingProfile));
-        builder.Services.AddDbContext<ApiDbContext>(options => options.UseNpgsql(connection));
+
+        var dataSource = new NpgsqlDataSourceBuilder(connection)
+        .EnableDynamicJson()
+        .Build();
+        builder.Services.AddDbContext<ApiDbContext>(options => options.UseNpgsql(dataSource));
+
         builder.Services.AddDependencyInjection(builder.Configuration);
 
         builder.Services.AddHostedService<MigrateHostedService>();

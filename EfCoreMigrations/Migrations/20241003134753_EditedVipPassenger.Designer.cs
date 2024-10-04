@@ -4,6 +4,7 @@ using EfCoreMigrations.DB;
 using EfCoreMigrations.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EfCoreMigrations.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003134753_EditedVipPassenger")]
+    partial class EditedVipPassenger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,7 +164,7 @@ namespace EfCoreMigrations.Migrations
                 {
                     b.HasBaseType("EfCoreMigrations.DB.Entities.PassengerEntity");
 
-                    b.Property<VipStatus>("VipStatus")
+                    b.Property<VipStatus>("JsonData")
                         .IsRequired()
                         .HasColumnType("jsonb");
 

@@ -9,6 +9,7 @@ public static class DependencyInjectionBuilderService
     {
         services.AddTransient<IMigrateService, MigrateService>();
         services.AddTransient<IEntityPoster, EntityPoster>();
+        services.AddTransient<IEntityGetter, EntityGetter>();
         return services;
     }
 }
