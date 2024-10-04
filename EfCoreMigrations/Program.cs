@@ -3,8 +3,6 @@ using EfCoreMigrations.DB;
 using EfCoreMigrations.Services;
 using EfCoreMigrations.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Npgsql;
 
 namespace EfCoreMigrations;
@@ -20,7 +18,7 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddAutoMapper(typeof(AppMapingProfile));
+        builder.Services.AddAutoMapper(AssemblyReference.Assembly);
 
         var dataSource = new NpgsqlDataSourceBuilder(connection)
         .EnableDynamicJson()

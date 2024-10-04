@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using EfCoreMigrations.DB.Entities;
 using EfCoreMigrations.DTO;
-using EfCoreMigrations.DTO.CreationDto;
-using System;
 
 namespace EfCoreMigrations.Services;
 
-public class AppMapingProfile:Profile
+public class AppMapingProfile : Profile
 {
     public AppMapingProfile()
     {
@@ -24,5 +22,5 @@ public class AppMapingProfile:Profile
         */
 
     }
-    
+
 }

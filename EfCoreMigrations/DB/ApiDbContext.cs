@@ -8,7 +8,7 @@ namespace EfCoreMigrations.DB;
 public class ApiDbContext : DbContext
 {
     public ApiDbContext() => Database.EnsureCreated();
-    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options) { Database.SetCommandTimeout(150000); }
+    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options) { }
     public DbSet<CompanyEntity> Companies { get; set; } = null!;
     public DbSet<StateOwnedCompanyEntity> StateOwnedCompanies { get; set; } = null!;
     public DbSet<PassengerEntity> Passengers { get; set; } = null!;
@@ -22,11 +22,11 @@ public class ApiDbContext : DbContext
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
         builder.Entity<PassengerEntity>().UseTpcMappingStrategy();
-        builder.Entity<TripEntity>().UseTphMappingStrategy();
+        builder.Entity<TripEntity>.UseTphMappingStrategy();
 
-        builder.Entity<VipPassengerEntity>()
-            .Property(p => p.VipStatus)
-            .HasColumnType("jsonb");
+        //builder.Entity<VipPassengerEntity>()
+        //    .Property(p => p.VipStatus)
+        //    .HasColumnType("jsonb");
 
     }
 }

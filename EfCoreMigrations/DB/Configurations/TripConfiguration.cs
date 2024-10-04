@@ -17,16 +17,17 @@ namespace EfCoreMigrations.DB.Configurations
         {
             builder.HasKey(k => k.Id);
             builder.HasIndex(k=>k.Id).IsUnique();
+            
 
             builder.Property(p => p.Plane).IsRequired();
             builder.Property(p => p.TownFrom).IsRequired();
             builder.Property(p => p.TownTo).IsRequired();
 
             builder
-                   .HasOne(p => p.Company)
-                   .WithMany(u => u.tripModels)
-                   .HasForeignKey(p => p.CompanyId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(p => p.Company)
+                .WithMany(u => u.Trips)
+                .HasForeignKey(p => p.CompanyId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
                    .HasMany(t => t.Passengers)

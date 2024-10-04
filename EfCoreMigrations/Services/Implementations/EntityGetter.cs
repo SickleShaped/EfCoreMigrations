@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations
 {
-    public class EntityGetter:IEntityGetter
+    public class EntityGetter : IEntityGetter
     {
         private readonly ApiDbContext _dbContext;
         public EntityGetter(ApiDbContext dbContext)
-        { 
+        {
             _dbContext = dbContext;
         }
         public async Task<List<CompanyEntity>> GetCompanies()
@@ -30,7 +30,7 @@ namespace EfCoreMigrations.Services.Implementations
         }
         public async Task<List<TripEntity>> GetTrips()
         {
-            return await _dbContext.Trips.AsNoTracking().ToListAsync(); 
+            return await _dbContext.Trips.AsNoTracking().ToListAsync();
         }
         public async Task<List<PlaneTripEntity>> GetPlaneTrips()
         {
