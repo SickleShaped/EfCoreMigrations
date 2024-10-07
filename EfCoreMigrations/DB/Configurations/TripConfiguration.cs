@@ -17,7 +17,7 @@ namespace EfCoreMigrations.DB.Configurations
         {
             builder.HasKey(k => k.Id);
             builder.HasIndex(k=>k.Id).IsUnique();
-            
+            builder.UseTphMappingStrategy();
 
             builder.Property(p => p.Plane).IsRequired();
             builder.Property(p => p.TownFrom).IsRequired();
@@ -42,13 +42,7 @@ namespace EfCoreMigrations.DB.Configurations
                     .HasOne(pt => pt.Trip)
                     .WithMany(t => t.PassengerTrips)
                     .HasForeignKey(pt => pt.TripId)
-                    .OnDelete(DeleteBehavior.Cascade),
-                pt =>
-                {
-                    pt.HasKey(k => k.Id);
-                    pt.HasIndex(i => i.Id).IsUnique();
-                    pt.Property(p => p.Place).IsRequired();
-                });
+                    .OnDelete(DeleteBehavior.Cascade));
         }
     }
 }

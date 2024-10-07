@@ -21,12 +21,5 @@ public class ApiDbContext : DbContext
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
-        builder.Entity<PassengerEntity>().UseTpcMappingStrategy();
-        builder.Entity<TripEntity>.UseTphMappingStrategy();
-
-        //builder.Entity<VipPassengerEntity>()
-        //    .Property(p => p.VipStatus)
-        //    .HasColumnType("jsonb");
-
     }
 }

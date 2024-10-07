@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCoreMigrations.DB.Entities;
 
-[Table ("passengertrips")]
-public class PassengerTripAuxilatyEntity: BaseEntity<Guid>
+[Table ("passengerTrips")]
+public class PassengerTripAuxilatyEntity
 {
     [Column("trip_id")]
     public Guid TripId { get; set; }
