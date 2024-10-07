@@ -9,8 +9,8 @@ public static class DependencyInjectionBuilderService
     {
         services.AddTransient<IMigrateService, MigrateService>();
         //services.AddTransient(typeof(IA<>), typeof(A<>));
-        services.AddTransient<IEntityPoster, EntityPoster>();
-        services.AddTransient<IEntityGetter, EntityGetter>();
+        //services.AddTransient<IEntityPoster, EntityPoster>();
+        //services.AddTransient<IEntityGetter, EntityGetter>();
         return services;
     }
 }

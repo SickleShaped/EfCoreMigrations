@@ -1,6 +1,6 @@
 ﻿namespace EfCoreMigrations.Repositories
 {
-    public class CompanyRepository
+    public class CompanyRepository:ICompanyRepository
     {
 
     }

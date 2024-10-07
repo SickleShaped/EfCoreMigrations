@@ -1,4 +1,4 @@
-﻿using EfCoreMigrations.DB.Entities;
+﻿/*using EfCoreMigrations.DB.Entities;
 using EfCoreMigrations.DTO.CreationDto;
 using EfCoreMigrations.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +9,8 @@ namespace EfCoreMigrations.Controllers;
 [Route("/")]
 public class HomeController : Controller
 {
-    private readonly IEntityPoster _entityPoster;
-    private readonly IEntityGetter _entityGetter;
+    //private readonly IEntityPoster _entityPoster;
+    p//rivate readonly IEntityGetter _entityGetter;
     public HomeController(IEntityPoster entityPoster, IEntityGetter entityGetter)
     {
         _entityPoster = entityPoster;
@@ -89,4 +89,4 @@ public class HomeController : Controller
     {
         return await _entityGetter.GetPlaneTrips();
     }
-}
+}*/
