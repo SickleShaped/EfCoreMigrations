@@ -1,6 +1,6 @@
 ﻿namespace EfCoreMigrations.DTO.CreationDto
 {
-    public class PassengerCreationDto
+    public class PassengerCreationDto: BaseCreationDto
     {
         public string Name {  get; set; }
     }

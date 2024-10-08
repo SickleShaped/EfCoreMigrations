@@ -11,6 +11,10 @@ public static class DependencyInjectionBuilderService
         //services.AddTransient(typeof(IA<>), typeof(A<>));
         //services.AddTransient<IEntityPoster, EntityPoster>();
         //services.AddTransient<IEntityGetter, EntityGetter>();
+        services.AddTransient<IPassengerService, PassengerService>();
+        services.AddTransient<ITripService, TripService>();
+
+        services.AddTransient(typeof(ICompanyService<Guid>), typeof(CompanyService<>));
         return services;
     }
 }

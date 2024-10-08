@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCoreMigrations.DTO.CreationDto
 {
-    public class TripCreationDto
+    public class TripCreationDto: BaseCreationDto
     {
         public Guid CompanyId { get; set; }
         public string Plane { get; set; }

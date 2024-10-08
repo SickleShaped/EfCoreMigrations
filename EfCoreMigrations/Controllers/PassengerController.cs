@@ -1,5 +1,4 @@
-﻿using EfCoreMigrations.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EfCoreMigrations.Controllers;
 

@@ -1,4 +1,4 @@
-﻿using EfCoreMigrations.Repositories;
+﻿using EfCoreMigrations.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EfCoreMigrations.Controllers;
@@ -7,9 +7,9 @@ namespace EfCoreMigrations.Controllers;
 [Route("/Companies")]
 public class CompanyCorntroller:Controller
 {
-    private readonly ICompanyRepository _tripRepository;
+    private readonly ICompanyRepository<Guid> _tripRepository;
 
-    public CompanyCorntroller(CompanyRepository repository)
+    public CompanyCorntroller(CompanyRepository<Guid> repository)
     {
         _tripRepository = repository;
     }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EfCoreMigrations.DB.Entities;
 
 [Table("trips")]
-public class TripEntity : BaseEntity<Guid>
+public class TripEntity : BaseEntityGeneric<Guid>
 {
     [Column("company_id")]
     public Guid CompanyId { get; set; }
