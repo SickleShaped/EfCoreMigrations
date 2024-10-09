@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class CompanyService<T>:ICompanyService<T>
+public class CompanyService<T>:ICompanyService<T> where T:CompanyEntity
 {
     private readonly ApiDbContext _context;
     public CompanyService(ApiDbContext dbContext)
@@ -16,22 +16,25 @@ public class CompanyService<T>:ICompanyService<T>
 
     public async Task<List<T>> GetAll()
     {
-        throw new NotImplementedException();
+        var result = await _context.Companies.ToListAsync();
+        return new List<T>((IEnumerable<T>)result);
     }
 
     public async Task<T> GetById(Guid Id)
     {
-        throw new NotImplementedException();
+        return (T)await _context.Companies.Where(c=>c.Id == Id).FirstOrDefaultAsync();
     }
 
     public async Task Insert(T entity)
     {
-        throw new NotImplementedException();
+        await _context.Companies.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task InsertStateOwnedCompany(StateOwnedCompanyCreationDto entity)
+    public async Task InsertStateOwnedCompany(StateOwnedCompanyEntity entity)
     {
-        throw new NotImplementedException();
+        await _context.StateOwnedCompanies.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task Delete(Guid id)

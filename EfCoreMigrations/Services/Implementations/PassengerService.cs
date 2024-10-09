@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class PassengerService<T> : IPassengerService<T>
+public class PassengerService<T> : IPassengerService<T> where T : PassengerEntity
 {
     private readonly ApiDbContext _context;
     public  PassengerService(ApiDbContext dbContext)
@@ -16,22 +16,25 @@ public class PassengerService<T> : IPassengerService<T>
     }
     public async Task<List<T>> GetAll()
     {
-        throw new NotImplementedException();
+        var result = await _context.Trips.ToListAsync();
+        return new List<T>((IEnumerable<T>)result);
     }
 
     public async Task<T> GetById(Guid Id)
     {
-        throw new NotImplementedException();
+        return (T)await _context.Passengers.Where(p => p.Id == Id).FirstOrDefaultAsync();
     }
 
     public async Task Insert(T entity)
     {
-        throw new NotImplementedException();
+        await _context.Passengers.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task InsertVipPassenger(VipPassengerCreationDto entity)
+    public async Task InsertVipPassenger(VipPassengerEntity entity)
     {
-        throw new NotImplementedException();
+        await _context.VipPassengerEntities.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public async Task Delete(Guid id)

@@ -6,6 +6,6 @@ namespace EfCoreMigrations.Services.Interfaces
 {
     public interface IPassengerService<T> : IBaseService<T>
     {
-        Task InsertVipPassenger(VipPassengerCreationDto entity);
+        Task InsertVipPassenger(VipPassengerEntity entity);
     }
 }

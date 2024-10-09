@@ -17,13 +17,14 @@ public class TripService<T> : ITripService<T> where T:TripEntity
 
     public async Task<List<T>> GetAll()
     {
-        throw new NotImplementedException();
+        var result = await _context.Trips.ToListAsync();
+        return new List<T>((IEnumerable<T>)result);
     }
 
     public async Task<T> GetById(Guid Id)
     {
-        var x = await _context.Trips.Where(t=>t.Id == Id).FirstOrDefaultAsync();
-        return (T)x;
+        var result = await _context.Trips.Where(t=>t.Id == Id).FirstOrDefaultAsync();
+        return (T)result;
     }
 
     public async Task Insert(T entity)

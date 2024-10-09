@@ -8,8 +8,6 @@ public class MigrateHostedService : BackgroundService
     private readonly IServiceProvider _provider;
     public MigrateHostedService(IConfiguration configuration, IServiceProvider provider, IMapper mapper)
     {
-        //Hour = Int32.Parse(configuration["ReaderTime:Hour"]);
-        //Minute = Int32.Parse(configuration["ReaderTime:Minute"]);
         _provider = provider;
     }
 

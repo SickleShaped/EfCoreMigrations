@@ -5,7 +5,7 @@ namespace EfCoreMigrations.Services.Interfaces
 {
     public interface ICompanyService<T>:IBaseService<T>
     {
-        Task InsertStateOwnedCompany(StateOwnedCompanyCreationDto entity);
+        Task InsertStateOwnedCompany(StateOwnedCompanyEntity entity);
 
     }
 }
