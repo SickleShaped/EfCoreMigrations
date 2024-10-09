@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EfCoreMigrations.DB.Entities;
+using EfCoreMigrations.DTO.CreationDto;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EfCoreMigrations.Controllers;
 
@@ -6,10 +8,5 @@ namespace EfCoreMigrations.Controllers;
 [Route("/Trips")]
 public class TripController:Controller
 {
-    private readonly ITripRepository _tripRepository;
-    
-    public TripController(TripRepository repository)
-    {
-        _tripRepository = repository;
-    }
+
 }

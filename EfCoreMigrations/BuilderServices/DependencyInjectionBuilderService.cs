@@ -1,5 +1,8 @@
-﻿using EfCoreMigrations.Services.Implementations;
+﻿using EfCoreMigrations.DB.Entities;
+using EfCoreMigrations.DTO.CreationDto;
+using EfCoreMigrations.Services.Implementations;
 using EfCoreMigrations.Services.Interfaces;
+using System.Runtime.CompilerServices;
 
 namespace EfCoreMigrations.BuilderServices;
 
@@ -8,13 +11,10 @@ public static class DependencyInjectionBuilderService
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services, Microsoft.Extensions.Configuration.ConfigurationManager builder)
     {
         services.AddTransient<IMigrateService, MigrateService>();
-        //services.AddTransient(typeof(IA<>), typeof(A<>));
-        //services.AddTransient<IEntityPoster, EntityPoster>();
-        //services.AddTransient<IEntityGetter, EntityGetter>();
-        services.AddTransient<IPassengerService, PassengerService>();
-        services.AddTransient<ITripService, TripService>();
-
-        services.AddTransient(typeof(ICompanyService<Guid>), typeof(CompanyService<>));
+        services.AddTransient(typeof(ICompanyService<>), typeof(CompanyService<>));
+        services.AddTransient(typeof(ITripService<>), typeof(TripService<>));
+        services.AddTransient(typeof(IPassengerService<>), typeof(PassengerService<>));
+        services.AddTransient<CompanyUnitOfWork<CompanyEntity, CompanyCreationDto>>();
         return services;
     }
 }

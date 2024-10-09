@@ -1,4 +1,7 @@
-﻿using EfCoreMigrations.Repositories.Interfaces;
+﻿using EfCoreMigrations.DB.Entities;
+using EfCoreMigrations.DTO.CreationDto;
+using EfCoreMigrations.Repositories.Interfaces;
+using EfCoreMigrations.UnitsOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EfCoreMigrations.Controllers;
@@ -7,10 +10,12 @@ namespace EfCoreMigrations.Controllers;
 [Route("/Companies")]
 public class CompanyCorntroller:Controller
 {
-    private readonly ICompanyRepository<Guid> _tripRepository;
+    private PassengerUnitOfWork<PassengerEntity, PassengerCreationDto> _UoW;
 
-    public CompanyCorntroller(CompanyRepository<Guid> repository)
+    //private readonly ICompanyRepository<Guid> _tripRepository;
+
+    public CompanyCorntroller(PassengerUnitOfWork<PassengerEntity, PassengerCreationDto> UoW)
     {
-        _tripRepository = repository;
+        _UoW = UoW;
     }
 }

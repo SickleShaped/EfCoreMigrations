@@ -6,10 +6,5 @@ namespace EfCoreMigrations.Controllers;
 [Route("/Passengers")]
 public class PassengerController : Controller
 {
-    private readonly IPassengerRepository _passengersRepository;
 
-    public PassengerController(PassengerRepository repository)
-    {
-        _passengersRepository = repository;
-    }
 }
