@@ -12,7 +12,7 @@ public class ApiDbContext : DbContext
     public DbSet<CompanyEntity> Companies { get; set; } = null!;
     public DbSet<StateOwnedCompanyEntity> StateOwnedCompanies { get; set; } = null!;
     public DbSet<PassengerEntity> Passengers { get; set; } = null!;
-    public DbSet<VipPassengerEntity> VipPassengerEntities { get; set; } = null!;
+    public DbSet<VipPassengerEntity> VipPassengers { get; set; } = null!;
     public DbSet<TripEntity> Trips { get; set; } = null!;
     public DbSet<PlaneTripEntity> PlaneTrips { get; set; } = null!;
     public DbSet<PassengerEntity> PassengerTrips { get; set; } = null!;

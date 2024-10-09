@@ -2,6 +2,6 @@
 {
     public class VipPassengerCreationDto:PassengerCreationDto
     {
-        public VipStatus VipStatus { get; set; }
+        public VipStatus? VipStatus { get; set; }
     }
 }

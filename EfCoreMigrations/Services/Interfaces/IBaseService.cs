@@ -6,4 +6,5 @@ public interface IBaseService<T>
     Task<T> GetById(Guid Id);
     Task Insert(T entity);
     Task Delete(Guid id);
+    Task Save();
 }

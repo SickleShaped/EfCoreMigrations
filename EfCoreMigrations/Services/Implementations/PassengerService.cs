@@ -22,7 +22,17 @@ public class PassengerService<T> : IPassengerService<T> where T : PassengerEntit
 
     public async Task<T> GetById(Guid Id)
     {
-        return (T)await _context.Passengers.Where(p => p.Id == Id).FirstOrDefaultAsync();
+        var result = await _context.Passengers.Where(p => p.Id == Id).FirstOrDefaultAsync();
+        return (T)result;
+    }
+
+    public async Task<VipPassengerEntity> GetVipPassengerById(Guid id)
+    {
+        return await _context.VipPassengers.Where(p=>p.Id == id).FirstOrDefaultAsync();
+    }
+    public async Task<List<VipPassengerEntity>> GetVipPassengers()
+    {
+        return await _context.VipPassengers.ToListAsync();
     }
 
     public async Task Insert(T entity)
@@ -33,12 +43,17 @@ public class PassengerService<T> : IPassengerService<T> where T : PassengerEntit
 
     public async Task InsertVipPassenger(VipPassengerEntity entity)
     {
-        await _context.VipPassengerEntities.AddAsync(entity);
+        await _context.VipPassengers.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
     public async Task Delete(Guid id)
     {
         await _context.Passengers.Where(c => c.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task Save()
+    {
+        await _context.SaveChangesAsync();
     }
 }

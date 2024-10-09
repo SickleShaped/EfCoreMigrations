@@ -27,6 +27,16 @@ public class TripService<T> : ITripService<T> where T:TripEntity
         return (T)result;
     }
 
+    public async Task<List<PlaneTripEntity>> GetPlaneTrips()
+    {
+        return await _context.PlaneTrips.ToListAsync();
+    }
+
+    public async Task<PlaneTripEntity> GetPlaneTipById(Guid id)
+    {
+        return await _context.PlaneTrips.Where(t => t.Id == id).FirstOrDefaultAsync();
+    }
+
     public async Task Insert(T entity)
     {
         await _context.Trips.AddAsync(entity);
@@ -42,6 +52,11 @@ public class TripService<T> : ITripService<T> where T:TripEntity
     public async Task Delete(Guid id)
     {
         await _context.Trips.Where(c => c.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task Save()
+    {
+        await _context.SaveChangesAsync();
     }
 
 }

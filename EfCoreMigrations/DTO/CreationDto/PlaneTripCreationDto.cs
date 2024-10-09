@@ -2,6 +2,6 @@
 {
     public class PlaneTripCreationDto:TripCreationDto
     {
-        public int PlaneId { get; set; }
+        public int? PlaneId { get; set; }
     }
 }

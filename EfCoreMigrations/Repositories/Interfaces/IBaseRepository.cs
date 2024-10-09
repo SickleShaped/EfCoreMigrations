@@ -10,7 +10,6 @@ public interface IBaseRepository<T, Y> where T : BaseEntity where Y : BaseCreati
     Task<List<T>> GetAll();
     Task<T> GetById(Guid Id);
     Task Insert(Y entity);
-    Task Edit(Y entity);
+    Task Edit(Y entity, Guid id);
     Task Delete(Guid id);
-
 }

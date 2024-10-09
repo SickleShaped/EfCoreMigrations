@@ -1,5 +1,8 @@
-﻿using EfCoreMigrations.DB;
+﻿using AutoMapper;
+using EfCoreMigrations.DB;
 using EfCoreMigrations.DB.Entities;
+using EfCoreMigrations.DTO;
+using EfCoreMigrations.DTO.CreationDto;
 using EfCoreMigrations.Repositories.Interfaces;
 using EfCoreMigrations.Services.Implementations;
 using EfCoreMigrations.Services.Interfaces;
@@ -7,78 +10,68 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Repositories.Implementations;
 
-public class TripRepository<T> : ITripRepository<T>
+public class TripRepository<T, Y> : ITripRepository<T, Y> where T : TripEntity where Y : TripCreationDto
 {
-    private readonly ITripService _tripService;
-    public TripRepository(TripService service)
+    private readonly ITripService<T> _tripService;
+    private readonly IMapper _mapper;
+    public TripRepository(TripService<T> tripService, IMapper mapper)
     {
-        _tripService = service;
+        _tripService = tripService;
+        _mapper = mapper;
+    }
+    public async Task<List<T>> GetAll()
+    {
+        return await _tripService.GetAll();
     }
 
-    public async Task<List<TripEntity>> GetAll()
+    public async Task<T> GetById(Guid Id)
     {
-        return await _dbContext.Trips.AsNoTracking().ToListAsync();
+        return await _tripService.GetById(Id);
     }
-    public async Task<TripEntity> GetById(Guid Id)
-    {
-        return await _dbContext.Trips.AsNoTracking().Where(c => c.Id == Id).FirstOrDefaultAsync();
-    }
-    public async Task<List<PlaneTripEntity>> GetPlaneTrips()
-    {
-        return await _dbContext.PlaneTrips.AsNoTracking().ToListAsync();
-    }
-    public async Task InsertTrip(TripEntity creation)
-    {
-        TripEntity entity = new TripEntity();
-        entity.Id = Guid.NewGuid();
-        entity.Plane = creation.Plane;
-        entity.TimeOut = creation.TimeOut;
-        entity.TimeIn = creation.TimeIn;
-        entity.CompanyId = creation.CompanyId;
-        entity.TownFrom = creation.TownFrom;
-        entity.TownTo = creation.TownTo;
 
-        await _dbContext.Trips.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
-    }
-    public async Task InsertPlaneTrip(PlaneTripEntity creation)
+    public Task<List<PlaneTripEntity>> GetPlaneTrips()
     {
-        PlaneTripEntity entity = new PlaneTripEntity();
-        entity.Id = Guid.NewGuid();
-        entity.Plane = creation.Plane;
-        entity.TimeOut = creation.TimeOut;
-        entity.TimeIn = creation.TimeIn;
-        entity.CompanyId = creation.CompanyId;
-        entity.TownFrom = creation.TownFrom;
-        entity.TownTo = creation.TownTo;
-        entity.Plane = creation.Plane;
+        return _tripService.GetPlaneTrips();
+    }
 
-        await _dbContext.PlaneTrips.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
-    }
-    public async Task UpdateTrip(TripEntity trip, Guid Id, int? PlaneId)
+    public async Task Insert(Y entity)
     {
-        if (PlaneId != null)
-        {
-            var x = await _dbContext.Trips.AsNoTracking().Where(c => c.Id == Id).FirstOrDefaultAsync();
-            x.Plane = trip.Plane;
-            x.TimeOut = trip.TimeOut;
-            x.TimeIn = trip.TimeIn;
-            x.CompanyId = trip.CompanyId;
-        }
-        else
-        {
-            var x = await _dbContext.PlaneTrips.AsNoTracking().Where(c => c.Id == Id).FirstOrDefaultAsync();
-            x.PlaneId = (int)PlaneId;
-            x.Plane = trip.Plane;
-            x.TimeOut = trip.TimeOut;
-            x.TimeIn = trip.TimeIn;
-            x.CompanyId = trip.CompanyId;
-        }
+        var trip = _mapper.Map<T>(entity);
+        await _tripService.Insert(trip);
+    }
 
-    }
-    public async Task DeleteTrip(Guid Id)
+    public async Task InsertPlaneTrip(PlaneTripCreationDto entity)
     {
-        var res = await _dbContext.Trips.Where(u => u.Id == Id).ExecuteDeleteAsync();
+        var trip = _mapper.Map<PlaneTripEntity>(entity);
+        await _tripService.InsertPlaneTrip(trip);
+    }
+    public async Task Edit(Y entity, Guid id)
+    {
+        var trip = await _tripService.GetById(id);
+        if (entity.TimeIn != null) { trip.TimeIn = (DateTime)entity.TimeIn; }
+        if (entity.TimeOut != null) { trip.TimeOut = (DateTime)entity.TimeOut; }
+        if (entity.Plane != null) { trip.Plane = entity.Plane; }
+        if (entity.TownFrom != null) { trip.TownFrom = entity.TownFrom; }
+        if (entity.TownTo != null) { trip.TownTo = entity.TownTo; }
+        if (entity.CompanyId != null) { trip.CompanyId = (Guid)entity.CompanyId; }
+        await _tripService.Save();
+    }
+
+    public async Task Edit(Y entity, Guid id, int? PlaneId)
+    {
+        var trip = await _tripService.GetPlaneTipById(id);
+        if (entity.TimeIn != null) { trip.TimeIn = (DateTime)entity.TimeIn; }
+        if (entity.TimeOut != null) { trip.TimeOut = (DateTime)entity.TimeOut; }
+        if (entity.Plane != null) { trip.Plane = entity.Plane; }
+        if (entity.TownFrom != null) { trip.TownFrom = entity.TownFrom; }
+        if (entity.TownTo != null) { trip.TownTo = entity.TownTo; }
+        if (entity.CompanyId != null) { trip.CompanyId = (Guid)entity.CompanyId; }
+        if (PlaneId != null) { trip.PlaneId = (int)PlaneId; }
+        await _tripService.Save();
+    }
+
+    public Task Delete(Guid id)
+    {
+        return _tripService.Delete(id);
     }
 }

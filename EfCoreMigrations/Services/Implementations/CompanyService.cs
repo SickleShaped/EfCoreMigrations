@@ -25,6 +25,16 @@ public class CompanyService<T>:ICompanyService<T> where T:CompanyEntity
         return (T)await _context.Companies.Where(c=>c.Id == Id).FirstOrDefaultAsync();
     }
 
+    public async Task<List<StateOwnedCompanyEntity>> GetStateOwnedCompanies()
+    {
+        return await _context.StateOwnedCompanies.ToListAsync();
+    }
+
+    public async Task<StateOwnedCompanyEntity> GetStateOwnedCompadyById(Guid id)
+    {
+        return await _context.StateOwnedCompanies.Where(c => c.Id == id).FirstOrDefaultAsync();
+    }
+
     public async Task Insert(T entity)
     {
         await _context.Companies.AddAsync(entity);
@@ -40,5 +50,10 @@ public class CompanyService<T>:ICompanyService<T> where T:CompanyEntity
     public async Task Delete(Guid id)
     {
         await _context.Companies.Where(c => c.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task Save()
+    {
+        await _context.SaveChangesAsync();
     }
 }
