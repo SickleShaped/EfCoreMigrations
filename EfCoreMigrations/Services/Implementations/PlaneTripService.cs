@@ -9,45 +9,46 @@ using EfCoreMigrations.DTO.EditDto;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class TripService : ITripService
+public class PlaneTripService : IPlaneTripService
 {
     private readonly UnitOfWork _unitOfWork;
-    private readonly IRepository<TripEntity> _repository;
+    private readonly IRepository<PlaneTripEntity> _repository;
 
-    public TripService(IRepository<TripEntity> repository, ApiDbContext context)
+    public PlaneTripService(IRepository<PlaneTripEntity> repository, ApiDbContext context)
     {
         _repository = repository;
         _unitOfWork = new UnitOfWork(context);
     }
 
-    public async Task<List<TripEntity>> GetAllAsync()
+    public async Task<List<PlaneTripEntity>> GetAllAsync()
     {
         var list = _repository.GetAll();
         var result = await list.ToListAsync();
         return result;
     }
 
-    public async Task<TripEntity> GetByIdAsync(Guid id)
+    public async Task<PlaneTripEntity> GetByIdAsync(Guid id)
     {
         var result = await _repository.GetByIdAsync(id, false, default);
         return result;
     }
 
-    public async Task InsertAsync(TripCreationDto dto)
+    public async Task InsertAsync(PlaneTripCreationDto dto)
     {
-        TripEntity entity = new TripEntity();
+        PlaneTripEntity entity = new PlaneTripEntity();
         entity.Id = new Guid();
         entity.CompanyId = dto.CompanyId;
         entity.TimeIn = dto.TimeIn;
         entity.TimeOut = dto.TimeOut;
         entity.TownFrom = dto.TownFrom;
         entity.TownTo = dto.TownTo;
+        entity.PlaneId = dto.PlaneId;
 
         _repository.Insert(entity);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(TripEditDto dto, Guid id)
+    public async Task UpdateAsync(PlaneTripEditDto dto, Guid id)
     {
         var entity = await _repository.GetByIdAsync(id, true, default);
         if (entity != null)
@@ -57,6 +58,7 @@ public class TripService : ITripService
             if(dto.TimeOut!= null) entity.TimeOut = (DateTime)dto.TimeOut;
             if(dto.TownFrom != null) entity.TownFrom = dto.TownFrom;
             if(dto.TownTo != null) entity.TownTo = dto.TownTo;
+            if (dto.PlaneId != null) entity.PlaneId = (int)dto.PlaneId;
             await _unitOfWork.SaveChangesAsync();
         }
     }

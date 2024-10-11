@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EfCoreMigrations.DB.Entities;
 
 [Table("trips")]
-public class TripEntity : BaseEntityGeneric<Guid>
+public class TripEntity : EntityBase
 {
     [Column("company_id")]
     public Guid CompanyId { get; set; }
-    [Column("plane")]
-    public string Plane { get; set; } = default!;
     [Column("town_from")]
     public string TownFrom { get; set; } = default!;
     [Column("town_to")]

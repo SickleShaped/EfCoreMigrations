@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EfCoreMigrations.Controllers;
-
-[ApiController]
-[Route("/Passengers")]
-public class PassengerController : Controller
+namespace EfCoreMigrations.Controllers
 {
-
+    public class PassengerController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
 }

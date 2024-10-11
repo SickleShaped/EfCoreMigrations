@@ -1,59 +1,62 @@
 ﻿using EfCoreMigrations.DB;
 using EfCoreMigrations.DB.Entities;
-using EfCoreMigrations.DTO;
 using EfCoreMigrations.DTO.CreationDto;
+using EfCoreMigrations.DTO.EditDto;
+using EfCoreMigrations.Repositories;
 using EfCoreMigrations.Services.Interfaces;
+using EfCoreMigrations.UnitsOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class PassengerService<T> : IPassengerService<T> where T : PassengerEntity
+public class PassengerService : IPassengerService
 {
-    private readonly ApiDbContext _context;
-    public  PassengerService(ApiDbContext dbContext)
+    private readonly UnitOfWork _unitOfWork;
+    private readonly IRepository<PassengerEntity> _repository;
+
+    public PassengerService(IRepository<PassengerEntity> repository, ApiDbContext context)
     {
-        _context = dbContext;
-    }
-    public async Task<List<T>> GetAll()
-    {
-        var result = await _context.Trips.ToListAsync();
-        return new List<T>((IEnumerable<T>)result);
+        _repository = repository;
+        _unitOfWork = new UnitOfWork(context);
     }
 
-    public async Task<T> GetById(Guid Id)
+    public async Task<List<PassengerEntity>> GetAllAsync()
     {
-        var result = await _context.Passengers.Where(p => p.Id == Id).FirstOrDefaultAsync();
-        return (T)result;
+        var list = _repository.GetAll();
+        var result = await list.ToListAsync();
+        return result;
     }
 
-    public async Task<VipPassengerEntity> GetVipPassengerById(Guid id)
+    public async Task<PassengerEntity> GetByIdAsync(Guid id)
     {
-        return await _context.VipPassengers.Where(p=>p.Id == id).FirstOrDefaultAsync();
-    }
-    public async Task<List<VipPassengerEntity>> GetVipPassengers()
-    {
-        return await _context.VipPassengers.ToListAsync();
+        var result = await _repository.GetByIdAsync(id, false, default);
+        return result;
     }
 
-    public async Task Insert(T entity)
+    public async Task InsertAsync(PassengerCreationDto dto)
     {
-        await _context.Passengers.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        PassengerEntity entity = new PassengerEntity();
+        entity.Id = new Guid();
+        entity.Name = dto.Name;
+
+        _repository.Insert(entity);
+        await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task InsertVipPassenger(VipPassengerEntity entity)
+    public async Task UpdateAsync(PassengerEditDto dto, Guid id)
     {
-        await _context.VipPassengers.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        var entity = await _repository.GetByIdAsync(id, true, default);
+        if (entity != null)
+        {
+            if (dto.Name != null) entity.Name = dto.Name;
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 
-    public async Task Delete(Guid id)
+    public async Task DeleteByIdAsync(Guid id)
     {
-        await _context.Passengers.Where(c => c.Id == id).ExecuteDeleteAsync();
-    }
-
-    public async Task Save()
-    {
-        await _context.SaveChangesAsync();
+        await _repository.ExecuteDeleteAsync(x => x.Id == id, default);
+        //тут можно экспепшн кинуть
+        await _unitOfWork.SaveChangesAsync();
     }
 }

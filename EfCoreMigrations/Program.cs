@@ -25,7 +25,7 @@ public class Program
         .Build();
         builder.Services.AddDbContext<ApiDbContext>(options => options.UseNpgsql(dataSource));
 
-        builder.Services.AddDependencyInjection(builder.Configuration);
+        builder.Services.AddDependencyInjection();
 
         builder.Services.AddHostedService<MigrateHostedService>();
         var app = builder.Build();

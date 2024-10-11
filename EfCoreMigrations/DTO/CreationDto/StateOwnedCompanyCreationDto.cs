@@ -2,6 +2,6 @@
 {
     public class StateOwnedCompanyCreationDto:CompanyCreationDto
     {
-        public string? CompanyCountry { get; set; }
+        public string CompanyCountry { get; set; } = default!;
     }
 }

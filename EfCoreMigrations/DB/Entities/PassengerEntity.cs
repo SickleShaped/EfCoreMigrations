@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EfCoreMigrations.DB.Entities;
 
 [Table ("passenges")]
-public class PassengerEntity: BaseEntityGeneric<Guid>
+public class PassengerEntity: EntityBase
 {
     [Column("name")]
     public string Name { get; set; } = default!;

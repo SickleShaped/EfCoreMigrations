@@ -19,7 +19,6 @@ namespace EfCoreMigrations.DB.Configurations
             builder.HasIndex(k=>k.Id).IsUnique();
             builder.UseTphMappingStrategy();
 
-            builder.Property(p => p.Plane).IsRequired();
             builder.Property(p => p.TownFrom).IsRequired();
             builder.Property(p => p.TownTo).IsRequired();
 

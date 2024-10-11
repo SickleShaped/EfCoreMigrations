@@ -1,12 +1,12 @@
-﻿using EfCoreMigrations.DB.Entities;
-using EfCoreMigrations.DTO.CreationDto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace EfCoreMigrations.Controllers;
-
-[ApiController]
-[Route("/Trips")]
-public class TripController:Controller
+namespace EfCoreMigrations.Controllers
 {
-
+    public class TripController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
 }

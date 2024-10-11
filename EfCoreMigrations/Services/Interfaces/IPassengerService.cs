@@ -1,13 +1,10 @@
 ﻿using EfCoreMigrations.DB.Entities;
-using EfCoreMigrations.DTO;
 using EfCoreMigrations.DTO.CreationDto;
+using EfCoreMigrations.DTO.EditDto;
 
 namespace EfCoreMigrations.Services.Interfaces
 {
-    public interface IPassengerService<T> : IBaseService<T>
+    public interface IPassengerService : IServiceBase<PassengerEntity, PassengerCreationDto, PassengerEditDto>
     {
-        Task<VipPassengerEntity> GetVipPassengerById(Guid id);
-        Task<List<VipPassengerEntity>> GetVipPassengers();
-        Task InsertVipPassenger(VipPassengerEntity entity);
     }
 }

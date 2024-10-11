@@ -9,46 +9,48 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class CompanyService : ICompanyService
+public class VipPassengerService : IVipPassengerService
 {
     private readonly UnitOfWork _unitOfWork;
-    private readonly IRepository<CompanyEntity> _repository;
+    private readonly IRepository<VipPassengerEntity> _repository;
 
-    public CompanyService(IRepository<CompanyEntity> repository, ApiDbContext context)
+    public VipPassengerService(IRepository<VipPassengerEntity> repository, ApiDbContext context)
     {
         _repository = repository;
         _unitOfWork = new UnitOfWork(context);
     }
 
-    public async Task<List<CompanyEntity>> GetAllAsync()
+    public async Task<List<VipPassengerEntity>> GetAllAsync()
     {
         var list = _repository.GetAll();
         var result = await list.ToListAsync();
         return result;
     }
 
-    public async Task<CompanyEntity> GetByIdAsync(Guid id)
+    public async Task<VipPassengerEntity> GetByIdAsync(Guid id)
     {
         var result = await _repository.GetByIdAsync(id, false, default);
         return result;
     }
 
-    public async Task InsertAsync(CompanyCreationDto dto)
+    public async Task InsertAsync(VipPassengerCreationDto dto)
     {
-        CompanyEntity entity = new CompanyEntity();
+        VipPassengerEntity entity = new VipPassengerEntity();
         entity.Id = new Guid();
         entity.Name = dto.Name;
+        entity.VipStatus = dto.VipStatus;
 
         _repository.Insert(entity);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(CompanyEditDto dto, Guid id)
+    public async Task UpdateAsync(VipPassengerEditDto dto, Guid id)
     {
         var entity = await _repository.GetByIdAsync(id, true, default);
         if (entity != null)
         {
-            if(dto.Name != null) entity.Name = dto.Name;
+            if (dto.Name != null) entity.Name = dto.Name;
+            if (dto.VipStatus != null) entity.VipStatus = dto.VipStatus;
             await _unitOfWork.SaveChangesAsync();
         }
     }

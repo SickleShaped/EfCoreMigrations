@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfCoreMigrations.DB.Entities.Abstractions;
-public abstract class BaseEntityGeneric<T>:BaseEntity
+public abstract class EntityBase : IEntity
 {
     [Column("id")]
-    public T Id { get; set; }
+    public Guid Id { get; set; }
 }

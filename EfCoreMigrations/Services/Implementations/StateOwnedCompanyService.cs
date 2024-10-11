@@ -9,41 +9,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EfCoreMigrations.Services.Implementations;
 
-public class CompanyService : ICompanyService
+public class StateOwnedCompanyService : IStateOwnedCompanyService
 {
     private readonly UnitOfWork _unitOfWork;
-    private readonly IRepository<CompanyEntity> _repository;
+    private readonly IRepository<StateOwnedCompanyEntity> _repository;
 
-    public CompanyService(IRepository<CompanyEntity> repository, ApiDbContext context)
+    public StateOwnedCompanyService(IRepository<StateOwnedCompanyEntity> repository, ApiDbContext context)
     {
         _repository = repository;
         _unitOfWork = new UnitOfWork(context);
     }
 
-    public async Task<List<CompanyEntity>> GetAllAsync()
+    public async Task<List<StateOwnedCompanyEntity>> GetAllAsync()
     {
         var list = _repository.GetAll();
         var result = await list.ToListAsync();
         return result;
     }
 
-    public async Task<CompanyEntity> GetByIdAsync(Guid id)
+    public async Task<StateOwnedCompanyEntity> GetByIdAsync(Guid id)
     {
         var result = await _repository.GetByIdAsync(id, false, default);
         return result;
     }
 
-    public async Task InsertAsync(CompanyCreationDto dto)
+    public async Task InsertAsync(StateOwnedCompanyCreationDto dto)
     {
-        CompanyEntity entity = new CompanyEntity();
+        StateOwnedCompanyEntity entity = new StateOwnedCompanyEntity();
         entity.Id = new Guid();
         entity.Name = dto.Name;
+        entity.CompanyCountry = dto.CompanyCountry;
 
         _repository.Insert(entity);
         await _unitOfWork.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(CompanyEditDto dto, Guid id)
+    public async Task UpdateAsync(StateOwnedCompanyEditDto dto, Guid id)
     {
         var entity = await _repository.GetByIdAsync(id, true, default);
         if (entity != null)

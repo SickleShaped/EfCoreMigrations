@@ -4,7 +4,7 @@ using EfCoreMigrations.DTO.EditDto;
 
 namespace EfCoreMigrations.Services.Interfaces
 {
-    public interface ITripService : IServiceBase<TripEntity, TripCreationDto, TripEditDto>
+    public interface IPlaneTripService : IServiceBase<PlaneTripEntity, PlaneTripCreationDto, PlaneTripEditDto>
     {
 
     }

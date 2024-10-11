@@ -1,12 +1,11 @@
 ﻿using EfCoreMigrations.DB.Entities;
 using EfCoreMigrations.DTO.CreationDto;
+using EfCoreMigrations.DTO.EditDto;
 
 namespace EfCoreMigrations.Services.Interfaces
 {
-    public interface ICompanyService<T>:IBaseService<T>
+    public interface ICompanyService : IServiceBase<CompanyEntity, CompanyCreationDto, CompanyEditDto>
     {
-        Task<StateOwnedCompanyEntity> GetStateOwnedCompadyById(Guid Id);
-        Task<List<StateOwnedCompanyEntity>> GetStateOwnedCompanies();
-        Task InsertStateOwnedCompany(StateOwnedCompanyEntity entity);
+        
     }
 }
