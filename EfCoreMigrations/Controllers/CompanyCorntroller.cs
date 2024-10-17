@@ -20,32 +20,34 @@ public class CompanyController:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<CompanyEntity>> GetAll()
+    public async Task<List<CompanyEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _companyService.GetAllAsync();
+
+        return await _companyService.GetAllAsync(cancellationToken);
+        
     }
 
     [HttpGet("GetById")]
-    public async Task<CompanyEntity> GetByIdAsync(Guid Id)
+    public async Task<CompanyEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _companyService.GetByIdAsync(Id);
+        return await _companyService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(CompanyCreationDto dto)
+    public async Task InsertAsync(CompanyCreationDto dto, CancellationToken cancellationToken)
     {
-        await _companyService.InsertAsync(dto);
+        await _companyService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(CompanyEditDto dto, Guid Id)
+    public async Task UpdateAsync(CompanyEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _companyService.UpdateAsync(dto, Id);
+        await _companyService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _companyService.DeleteByIdAsync(Id);
+        await _companyService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

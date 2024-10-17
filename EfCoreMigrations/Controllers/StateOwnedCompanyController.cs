@@ -20,32 +20,32 @@ public class StateOwnedCompanyController:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<StateOwnedCompanyEntity>> GetAll()
+    public async Task<List<StateOwnedCompanyEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _stateOwnedCompanyService.GetAllAsync();
+        return await _stateOwnedCompanyService.GetAllAsync(cancellationToken);
     }
 
     [HttpGet("GetById")]
-    public async Task<StateOwnedCompanyEntity> GetByIdAsync(Guid Id)
+    public async Task<StateOwnedCompanyEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _stateOwnedCompanyService.GetByIdAsync(Id);
+        return await _stateOwnedCompanyService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(StateOwnedCompanyCreationDto dto)
+    public async Task InsertAsync(StateOwnedCompanyCreationDto dto, CancellationToken cancellationToken)
     {
-        await _stateOwnedCompanyService.InsertAsync(dto);
+        await _stateOwnedCompanyService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(StateOwnedCompanyEditDto dto, Guid Id)
+    public async Task UpdateAsync(StateOwnedCompanyEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _stateOwnedCompanyService.UpdateAsync(dto, Id);
+        await _stateOwnedCompanyService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _stateOwnedCompanyService.DeleteByIdAsync(Id);
+        await _stateOwnedCompanyService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

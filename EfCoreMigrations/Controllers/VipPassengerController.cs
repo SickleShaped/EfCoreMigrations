@@ -21,32 +21,32 @@ public class VipPassengerCorntroller:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<VipPassengerEntity>> GetAll()
+    public async Task<List<VipPassengerEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _vipPassengerService.GetAllAsync();
+        return await _vipPassengerService.GetAllAsync(cancellationToken);
     }
 
     [HttpGet("GetById")]
-    public async Task<VipPassengerEntity> GetByIdAsync(Guid Id)
+    public async Task<VipPassengerEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _vipPassengerService.GetByIdAsync(Id);
+        return await _vipPassengerService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(VipPassengerCreationDto dto)
+    public async Task InsertAsync(VipPassengerCreationDto dto, CancellationToken cancellationToken)
     {
-        await _vipPassengerService.InsertAsync(dto);
+        await _vipPassengerService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(VipPassengerEditDto dto, Guid Id)
+    public async Task UpdateAsync(VipPassengerEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _vipPassengerService.UpdateAsync(dto, Id);
+        await _vipPassengerService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _vipPassengerService.DeleteByIdAsync(Id);
+        await _vipPassengerService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

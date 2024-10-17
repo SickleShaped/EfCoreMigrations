@@ -7,10 +7,10 @@ namespace EfCoreMigrations.Services.Interfaces
 {
     public interface IServiceBase<TEntityBase, TCreationDto, TEditDto> where TEntityBase : EntityBase where TCreationDto : BaseCreationDto where TEditDto : BaseEditDto
     {
-        Task<List<TEntityBase>> GetAllAsync();
-        Task<TEntityBase> GetByIdAsync(Guid id);
-        Task InsertAsync(TCreationDto entity);
-        Task UpdateAsync(TEditDto entity, Guid id);
-        Task DeleteByIdAsync(Guid id);
+        Task<List<TEntityBase>> GetAllAsync(CancellationToken cancellationToken);
+        Task<TEntityBase> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task InsertAsync(TCreationDto entity, CancellationToken cancellationToken);
+        Task UpdateAsync(TEditDto entity, Guid id, CancellationToken cancellationToken);
+        Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

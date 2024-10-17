@@ -20,32 +20,32 @@ public class PassengerController:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<PassengerEntity>> GetAll()
+    public async Task<List<PassengerEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _passengerService.GetAllAsync();
+        return await _passengerService.GetAllAsync(cancellationToken);
     }
 
     [HttpGet("GetById")]
-    public async Task<PassengerEntity> GetByIdAsync(Guid Id)
+    public async Task<PassengerEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _passengerService.GetByIdAsync(Id);
+        return await _passengerService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(PassengerCreationDto dto)
+    public async Task InsertAsync(PassengerCreationDto dto, CancellationToken cancellationToken)
     {
-        await _passengerService.InsertAsync(dto);
+        await _passengerService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(PassengerEditDto dto, Guid Id)
+    public async Task UpdateAsync(PassengerEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _passengerService.UpdateAsync(dto, Id);
+        await _passengerService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _passengerService.DeleteByIdAsync(Id);
+        await _passengerService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

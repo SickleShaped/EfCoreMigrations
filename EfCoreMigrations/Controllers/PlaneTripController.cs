@@ -20,32 +20,32 @@ public class PlaneTripController:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<PlaneTripEntity>> GetAll()
+    public async Task<List<PlaneTripEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _planeTripService.GetAllAsync();
+        return await _planeTripService.GetAllAsync(cancellationToken);
     }
 
     [HttpGet("GetById")]
-    public async Task<PlaneTripEntity> GetByIdAsync(Guid Id)
+    public async Task<PlaneTripEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _planeTripService.GetByIdAsync(Id);
+        return await _planeTripService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(PlaneTripCreationDto dto)
+    public async Task InsertAsync(PlaneTripCreationDto dto, CancellationToken cancellationToken)
     {
-        await _planeTripService.InsertAsync(dto);
+        await _planeTripService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(PlaneTripEditDto dto, Guid Id)
+    public async Task UpdateAsync(PlaneTripEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _planeTripService.UpdateAsync(dto, Id);
+        await _planeTripService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _planeTripService.DeleteByIdAsync(Id);
+        await _planeTripService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

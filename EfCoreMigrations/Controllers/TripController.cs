@@ -20,32 +20,32 @@ public class TripsController:Controller
     }
 
     [HttpGet("GetAll")]
-    public async Task<List<TripEntity>> GetAll()
+    public async Task<List<TripEntity>> GetAll(CancellationToken cancellationToken)
     {
-        return await _tripService.GetAllAsync();
+        return await _tripService.GetAllAsync(cancellationToken);
     }
 
     [HttpGet("GetById")]
-    public async Task<TripEntity> GetByIdAsync(Guid Id)
+    public async Task<TripEntity> GetByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        return await _tripService.GetByIdAsync(Id);
+        return await _tripService.GetByIdAsync(Id, cancellationToken);
     }
 
     [HttpPost("Insert")]
-    public async Task InsertAsync(TripCreationDto dto)
+    public async Task InsertAsync(TripCreationDto dto, CancellationToken cancellationToken)
     {
-        await _tripService.InsertAsync(dto);
+        await _tripService.InsertAsync(dto, cancellationToken);
     }
 
     [HttpPut("Edit")]
-    public async Task UpdateAsync(TripEditDto dto, Guid Id)
+    public async Task UpdateAsync(TripEditDto dto, Guid Id, CancellationToken cancellationToken)
     {
-        await _tripService.UpdateAsync(dto, Id);
+        await _tripService.UpdateAsync(dto, Id, cancellationToken);
     }
 
     [HttpDelete("Delete")]
-    public async Task DeleteByIdAsync(Guid Id)
+    public async Task DeleteByIdAsync(Guid Id, CancellationToken cancellationToken)
     {
-        await _tripService.DeleteByIdAsync(Id);
+        await _tripService.DeleteByIdAsync(Id, cancellationToken);
     }
 }

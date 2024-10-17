@@ -20,20 +20,20 @@ public class TripService : ITripService
         _unitOfWork = new UnitOfWork(context);
     }
 
-    public async Task<List<TripEntity>> GetAllAsync()
+    public async Task<List<TripEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var list = _repository.GetAll();
-        var result = await list.ToListAsync();
+        var result = await list.ToListAsync(cancellationToken);
         return result;
     }
 
-    public async Task<TripEntity> GetByIdAsync(Guid id)
+    public async Task<TripEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _repository.GetByIdAsync(id, false, default);
+        var result = await _repository.GetByIdAsync(id, false, cancellationToken);
         return result;
     }
 
-    public async Task InsertAsync(TripCreationDto dto)
+    public async Task InsertAsync(TripCreationDto dto, CancellationToken cancellationToken)
     {
         TripEntity entity = new TripEntity();
         entity.Id = new Guid();
@@ -44,12 +44,12 @@ public class TripService : ITripService
         entity.TownTo = dto.TownTo;
 
         _repository.Insert(entity);
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task UpdateAsync(TripEditDto dto, Guid id)
+    public async Task UpdateAsync(TripEditDto dto, Guid id, CancellationToken cancellationToken)
     {
-        var entity = await _repository.GetByIdAsync(id, true, default);
+        var entity = await _repository.GetByIdAsync(id, true, cancellationToken);
         if (entity != null)
         {
             if(dto.CompanyId != null) entity.CompanyId = (Guid)dto.CompanyId;
@@ -57,14 +57,14 @@ public class TripService : ITripService
             if(dto.TimeOut!= null) entity.TimeOut = (DateTime)dto.TimeOut;
             if(dto.TownFrom != null) entity.TownFrom = dto.TownFrom;
             if(dto.TownTo != null) entity.TownTo = dto.TownTo;
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 
-    public async Task DeleteByIdAsync(Guid id)
+    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        await _repository.ExecuteDeleteAsync(x => x.Id == id, default);
+        await _repository.ExecuteDeleteAsync(x => x.Id == id, cancellationToken);
         //тут можно экспепшн кинуть
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 }
