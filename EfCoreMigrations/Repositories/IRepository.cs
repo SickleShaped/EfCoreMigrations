@@ -9,5 +9,6 @@ public interface IRepository<TEntity> where TEntity : EntityBase
     Task<TEntity> GetByIdAsync(Guid id, bool trackable, CancellationToken cancellationToken);
     void Insert(TEntity entity);
     Task<int> ExecuteDeleteAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    Task<List<TEntity>> GetAllWhereExpression(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
     //update
 }

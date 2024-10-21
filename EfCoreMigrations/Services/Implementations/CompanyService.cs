@@ -6,6 +6,7 @@ using EfCoreMigrations.Repositories;
 using EfCoreMigrations.Services.Interfaces;
 using EfCoreMigrations.UnitsOfWork;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace EfCoreMigrations.Services.Implementations;
 
@@ -31,6 +32,11 @@ public class CompanyService : ICompanyService
     {
         var result = await _repository.GetByIdAsync(id, false, cancellationToken);
         return result;
+    }
+
+    public async Task<List<CompanyEntity>> GetByName(string name, CancellationToken cancellationToken)
+    {
+        return await _repository.GetAllWhereExpression(x => x.Name == name, cancellationToken);
     }
 
     public async Task InsertAsync(CompanyCreationDto dto, CancellationToken cancellationToken)

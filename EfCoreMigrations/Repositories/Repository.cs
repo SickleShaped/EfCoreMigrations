@@ -43,4 +43,9 @@ public class Repository<TEntity> : IRepository<TEntity>
         }
     }
 
+    public async Task<List<TEntity>> GetAllWhereExpression(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    {
+        return await _dbSet.Where(predicate).ToListAsync(cancellationToken);
+    }
+
 }
